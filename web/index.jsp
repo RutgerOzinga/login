@@ -17,20 +17,9 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <div id = "toChange" data-user = ${sessionScope.user.username}>
+            <jsp:include page="includes/loginForm.jsp"/>
+        </div>
 
-
-<!--    <c:choose>
-        <c:when test="${empty sessionScope.user}">
-            <%--<jsp:include page="includes/loginForm.jsp"/>--%>
-        </c:when>
-        <c:otherwise>
-            <%--<jsp:include page="includes/workshop1.jsp"/>--%>
-            <h1>Hallo ${sessionScope.user.username}</h1>
-        </c:otherwise>
-    </c:choose>-->
-    <div id = "toChange" data-user = ${sessionScope.user.username}>
-        <jsp:include page="includes/loginForm.jsp"/>
-    </div>
-
-</body>
+    </body>
 </html>
