@@ -7,7 +7,7 @@
     <div class="main">
         <label> Hallo, ${sessionScope.user.username}</label><br/>
         <table>
-            <input type="button" value="Logout" name="logout" id="login"/>    
+            <input type="submit" value="Logout" name="logout" id="login"/>    
         </table>
     </div>
 </form>
