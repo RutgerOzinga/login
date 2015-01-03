@@ -6,5 +6,6 @@ function initialize() {
     $("#toChange").load("includes/loginForm.jsp");
 } else{
         $("#toChange").load("includes/workshop2.jsp");
+        $("#logout").load("includes/logout.jsp");
     }
 }

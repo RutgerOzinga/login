@@ -18,8 +18,9 @@
     <body>
         <h1>Hello World!</h1>
         <div id = "toChange" data-user = ${sessionScope.user.username}>
-            <jsp:include page="includes/loginForm.jsp"/>
+
         </div>
+        <div id ="logout"></div>
 
     </body>
 </html>
