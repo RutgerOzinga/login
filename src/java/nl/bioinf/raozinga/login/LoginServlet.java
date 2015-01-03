@@ -51,14 +51,14 @@ public class LoginServlet extends HttpServlet {
                  * add a valid user check here.
                  */
                 if (username.equalsIgnoreCase(validUsername) && password.equalsIgnoreCase(validPassword)) {
-                    HttpSession session = request.getSession();
-                    session.setMaxInactiveInterval(30);
+                    User user = new User(username,password);
+                    user.setLoggedin(true);
                     HttpSession session = request.getSession();
                     session.setMaxInactiveInterval(30);
                     if (session.getAttribute("user") == null) {
-                        session.setAttribute("user", u);
+                        session.setAttribute("user", user);
                     }
-                    request.setAttribute("user", u);
+                    request.setAttribute("user", user);
                     RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                     view.forward(request, response);
 
