@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
                     User user = new User(username,password);
                     user.setLoggedin(true);
                     HttpSession session = request.getSession();
-                    session.setMaxInactiveInterval(30);
+                    session.setMaxInactiveInterval(10);
                     if (session.getAttribute("user") == null) {
                         session.setAttribute("user", user);
                     }

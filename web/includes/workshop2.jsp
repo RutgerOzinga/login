@@ -8,3 +8,4 @@ VERDER IS HIJ HEEEEEEEEL KNAP.
 <br/><br/>
 Gegroet ik ben Martijn klik hier als u trug wild gaan naar de hooft pagina.
 <input type="submit" value="trug" name="Trug" />
+<h1>Hallo ${sessionScope.user.username}</h1>
