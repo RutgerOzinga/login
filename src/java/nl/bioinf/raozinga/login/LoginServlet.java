@@ -53,9 +53,14 @@ public class LoginServlet extends HttpServlet {
                 if (username.equalsIgnoreCase(validUsername) && password.equalsIgnoreCase(validPassword)) {
                     HttpSession session = request.getSession();
                     session.setMaxInactiveInterval(30);
+                    HttpSession session = request.getSession();
+                    session.setMaxInactiveInterval(30);
                     if (session.getAttribute("user") == null) {
-                        session.setAttribute("user", username);
+                        session.setAttribute("user", u);
                     }
+                    request.setAttribute("user", u);
+                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                    view.forward(request, response);
 
                 } else {
                     request.setAttribute("login_error", "Invalid username or "
@@ -65,11 +70,6 @@ public class LoginServlet extends HttpServlet {
                 }
 
             } catch(ServletException error)  {
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, error);
-                request.setAttribute("login_error", "could not log you in due to technical problems; please try again later");
-                RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                view.forward(request, response);
-            } catch (IOException error) {
                 Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, error);
                 request.setAttribute("login_error", "could not log you in due to technical problems; please try again later");
                 RequestDispatcher view = request.getRequestDispatcher("index.jsp");
