@@ -34,7 +34,8 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String logout = request.getParameter("logout");
-        if (logout != null && logout.equals("logout")) {
+        
+        if (logout != null && logout.equals("Logout")) {
             request.getSession().invalidate();
             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);

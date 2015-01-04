@@ -39,14 +39,7 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String logout = request.getParameter("logout");
-        
-        
-        if (logout != null && logout.equals("Logout")) {
-            request.getSession().invalidate();
-            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-            view.forward(request, response);
-        }
+       
         
         if (username == null || username.length() == 0 || password == null
                 || password.length() == 0) {
