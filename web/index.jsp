@@ -6,6 +6,7 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,10 +18,14 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <div id = "toChange" data-user = ${sessionScope.user.username}>
-
-        </div>
-        <div id ="logout"></div>
-
+        <c:choose>
+            <c:when test="${empty sessionScope.user}">
+                <jsp:include page="includes/loginForm.jsp"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="includes/logout.jsp"/>
+                <jsp:include page="includes/workshop1.jsp"/>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>
