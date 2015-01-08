@@ -4,6 +4,18 @@
         <param-name>base_url</param-name>
         <param-value>http://localhost:8080/Login/</param-value>
     </context-param>
+    <context-param>
+        <param-name>mysql_url</param-name>
+        <param-value>jdbc:mysql://mysql.bin/Thjkral</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mysql_user</param-name>
+        <param-value>thjkral</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mysql_pass</param-name>
+        <param-value>eikenboom</param-value>
+    </context-param>
     <servlet>
         <servlet-name>loginServlet</servlet-name>
         <servlet-class>nl.bioinf.raozinga.login.LoginServlet</servlet-class>

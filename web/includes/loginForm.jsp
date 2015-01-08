@@ -10,33 +10,52 @@
 
         <form class="login" action="login.do" method="POST" action="#">
 
-            <label> Login </label><br/>
+            <h2><b> Log in </b></h2>
             <span class="error_message"> ${requestScope.login_error} </span><br/><br/>
-            <label> Username :</label>
+            <label> Gebruikersnaam:</label>
             <input type="text" name="username" id="email">
-            <label> Password :</label>
+            <label> Wachtwoord:</label>
             <input type="password" name="password" id="password">
             <table>
-                <input type="submit" value="Login" name="login" id="login"/>
+                <input type="submit" value="Log in" name="login" id="login"/>
 
-                <input type="button" value="Register" name="Register" id="register"/> 
+                <input type="button" value="Registreer" name="Register" id="register"/> 
             </table>
         </form>
-        <div id="dialog" title="IT WORKS">
+        <div id="dialog" title="Registreer">
             <form name="register_form" action="register.do" method="POST">
-                <object width="425" height="344">
-                    <param name="movie"
-                           value="http://www.youtube.com/v/J_DV9b0x7v4&hl=en&fs=1">
-                    </param>
-                    <param name="allowFullScreen" value="true"></param>
-                    <param name="allowscriptaccess" value="always"></param>
-                    <embed src="http://www.youtube.com/v/J_DV9b0x7v4&hl=en&fs=1"
-                           type="application/x-shockwave-flash"
-                           allowscriptaccess="always"
-                           allowfullscreen="true"
-                           width="425" height="344">
-                    </embed>
-                </object>
+                <div id="dialog" title="Basic dialog">
+                    <form name="register_form" action="register.do" method="POST">
+                        <table>
+                            <tr>
+                                <td>Gebruikersnaam</td>
+                                <td><input name="userName" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td>Wachtwoord</td>
+                                <td><input name="password" type="password" /></td>
+                            </tr>
+                            <tr>
+                                <td>Voornaam</td>
+                                <td><input name="firstName" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td>Achternaam</td>
+                                <td><input name="lastName" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td>E-mail</td>
+                                <td><input name="email" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" value="register" /></td>
+                                <td><a href="index.jsp">Heb je al een account?</a></td>
+                            </tr>
+
+                        </table>
+                    </form>
+                </div>
             </form>
         </div>
     </div>
