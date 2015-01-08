@@ -85,37 +85,31 @@ public class LoginServlet extends HttpServlet {
                     e.getMessage();
                 }
 
-                if (username.equalsIgnoreCase(validUsername) && password.equalsIgnoreCase(validPassword)) {
-                    User user = new User(username, password);
-                    user.setLoggedin(true);
-                    HttpSession session = request.getSession();
-                    session.setMaxInactiveInterval(10);
-                    if (session.getAttribute("user") == null) {
-                        session.setAttribute("user", user);
-                    }
-                    request.setAttribute("user", user);
-                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                    view.forward(request, response);
-
-                } else {
-                    request.setAttribute("login_error", "Invalid username or "
-                            + "password! Please check both, and try again");
-                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                    view.forward(request, response);
-                }
+//                if (username.equalsIgnoreCase(validUsername) && password.equalsIgnoreCase(validPassword)) {
+//                    User user = new User(username, password);
+//                    user.setLoggedin(true);
+//                    HttpSession session = request.getSession();
+//                    session.setMaxInactiveInterval(10);
+//                    if (session.getAttribute("user") == null) {
+//                        session.setAttribute("user", user);
+//                    }
+//                    request.setAttribute("user", user);
+//                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+//                    view.forward(request, response);
+//
+//                } else {
+//                    request.setAttribute("login_error", "Invalid username or "
+//                            + "password! Please check both, and try again");
+//                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+//                    view.forward(request, response);
+//                }
 
             } catch (ServletException | IOException ex) {
                 String error = "can not connect to the database; try again or contact the administrator; available info: " + ex.getMessage();
                 RequestDispatcher view = request.getRequestDispatcher("error.jsp");
                 view.forward(request, response);
             }
-//
-//        }catch (ServletException error) {
-//                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, error);
-//                request.setAttribute("login_error", "could not log you in due to technical problems; please try again later");
-//                RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-//                view.forward(request, response);
-//            }
+
         }
 
     }
