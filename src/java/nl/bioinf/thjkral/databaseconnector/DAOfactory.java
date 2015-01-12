@@ -32,7 +32,7 @@ public class DAOfactory {
             dao.connect(dbUser, dbPass, dbUrl);
             return dao;
         }
-        catch (ClassNotFoundException e) {
+        catch (IOException e) {
             Logger.getLogger(DAOfactory.class.getName()).log(Level.SEVERE, null, e);
             throw new IOException("", e);
         }

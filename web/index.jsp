@@ -22,7 +22,7 @@
             </c:when>
             <c:otherwise>
                 <jsp:include page="includes/logout.jsp"/>
-                <jsp:include page="includes/workshop1.jsp"/>
+           
             </c:otherwise>
         </c:choose>
     </body>

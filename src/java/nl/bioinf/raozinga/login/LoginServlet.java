@@ -37,12 +37,10 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String validUsername = "TheGardner";
-        String validPassword = "frodo4ever";
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        
         if (username == null || username.length() == 0 || password == null
                 || password.length() == 0) {
             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
@@ -50,68 +48,45 @@ public class LoginServlet extends HttpServlet {
         } else {
 
             String dbUrl;
-            String dbuser;
+            String dbUser;
             String dbPass;
 
             try {
                 dbUrl = getServletConfig().getInitParameter("mysql_url");
-                dbuser = getServletConfig().getInitParameter("mysql_user");
+                dbUser = getServletConfig().getInitParameter("mysql_user");
                 dbPass = getServletConfig().getInitParameter("mysql_pass");
-
-                if (dbUrl == null || dbuser == null || dbPass == null) {
-                    throw new ServletException("one or more db connection params is not defined!");
-                }
-
-                UserDAOmysqlImpl eland = new UserDAOmysqlImpl();
-                eland.connect(dbUrl, dbuser, dbPass);
-
+                
+                UserDAOmysqlImpl dbconnect = new UserDAOmysqlImpl();
+                
                 try {
-                    User user = eland.loginUser(username, password);
+                    dbconnect.connect(dbUrl, dbUser, dbPass);
+                    
+                    User user = dbconnect.loginUser(username, password);
 
-                    if (User == null) {
-                        throw new IOException("User is empty");
-                    } else {
-                        HttpSession session = request.getSession();
-                        session.setMaxInactiveInterval(10);
-                        if (session.getAttribute("user") == null) {
-                            session.setAttribute("user", user);
-                        }
-                        request.setAttribute("user", user);
-                        RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                        view.forward(request, response);
+                    HttpSession session = request.getSession();
+                    session.setMaxInactiveInterval(10);
+                    if (session.getAttribute("user") == null) {
+                        session.setAttribute("user", user);
                     }
+                    request.setAttribute("user", user);
+                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                    view.forward(request, response);
 
-                } catch (IOException e) {
-                    e.getMessage();
+                } catch (ServletException | IOException ex) {
+                    String errorMessage = "Could not connect to database: " + ex.getMessage();
+                    request.setAttribute("error", errorMessage);
+                    RequestDispatcher view = request.getRequestDispatcher("error.jsp");
+                    view.forward(request, response);
                 }
 
-//                if (username.equalsIgnoreCase(validUsername) && password.equalsIgnoreCase(validPassword)) {
-//                    User user = new User(username, password);
-//                    user.setLoggedin(true);
-//                    HttpSession session = request.getSession();
-//                    session.setMaxInactiveInterval(10);
-//                    if (session.getAttribute("user") == null) {
-//                        session.setAttribute("user", user);
-//                    }
-//                    request.setAttribute("user", user);
-//                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-//                    view.forward(request, response);
-//
-//                } else {
-//                    request.setAttribute("login_error", "Invalid username or "
-//                            + "password! Please check both, and try again");
-//                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-//                    view.forward(request, response);
-//                }
-
-            } catch (ServletException | IOException ex) {
-                String error = "can not connect to the database; try again or contact the administrator; available info: " + ex.getMessage();
+            } catch (IOException ex) {
+                String errorMessage = "Could not connect to database: " + ex.getMessage();
+                request.setAttribute("error", errorMessage);
                 RequestDispatcher view = request.getRequestDispatcher("error.jsp");
                 view.forward(request, response);
             }
 
         }
-
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

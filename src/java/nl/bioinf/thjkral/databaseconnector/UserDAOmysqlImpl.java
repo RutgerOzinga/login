@@ -28,7 +28,6 @@ public final class UserDAOmysqlImpl implements UserDAO {
 //    public UserDAOmysqlImpl() throws ClassNotFoundException{
 //	connect();
 //    }
-
     /**
      * Establishes connection with database.
      *
@@ -42,9 +41,11 @@ public final class UserDAOmysqlImpl implements UserDAO {
             Class.forName("com.mysql.jdbc.Driver");//loads the JDBC driver class
             try {
                 connection = DriverManager.getConnection(dbUrl, dbUser, dbPass);//establishes the connection
-                System.out.println("Conected");
+                Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.INFO, "****Connected!");
+                System.out.println("***Connected");
             } catch (SQLException e) {
-                e.getMessage();
+                Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.SEVERE, "****NOT Connected!");
+                throw new IOException(e.getMessage());
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,6 +88,7 @@ public final class UserDAOmysqlImpl implements UserDAO {
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
                 String emailAdress = rs.getString("email");
+                System.out.println("User logged in!");
                 return new User(username, firstName, lastName, emailAdress);
             } else {
                 throw new IllegalArgumentException("Username and Password not recognized");
@@ -140,7 +142,7 @@ public final class UserDAOmysqlImpl implements UserDAO {
                             psi.setString(4, password);
                             psi.setString(5, emailAdress);
                             psi.executeUpdate();
-                            
+                            return new User(username, firstName, lastName, emailAdress);
 
                         } catch (SQLException ex) {
                             Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,7 +157,26 @@ public final class UserDAOmysqlImpl implements UserDAO {
         } catch (SQLException | IllegalArgumentException ex) {
             Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
 
     }
+
+//    public static void main(String[] args) {
+//
+//        String dbUser = "thjkral";
+//        String dbPass = "eikenboom";
+//        String dbUrl = "jdbc:mysql://mysql.bin/Thjkral";
+//        String username =  "TheGardner";
+//        String password =  "frodo4ever";
+//        
+//        UserDAOmysqlImpl test = new UserDAOmysqlImpl();
+//        
+//        try {
+//            test.connect(dbUrl, dbUser, dbPass);
+//            User user = test.loginUser(username,password);
+//        } catch (IOException ex) {
+//            Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
 }
