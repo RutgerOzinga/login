@@ -12,6 +12,7 @@
 
             <h2><b> Log in </b></h2>
             <span class="error_message"> ${requestScope.login_error} </span><br/><br/>
+            <span class="error_message"> ${requestScope.register_error} </span><br /><br />
             <label> Gebruikersnaam:</label>
             <input type="text" name="username" id="username">
             <label> Wachtwoord:</label>
@@ -26,6 +27,7 @@
             <form name="register_form" action="register.do" method="POST">
                 <div id="dialog" title="Basic dialog">
                     <form name="register_form" action="register.do" method="POST">
+                        
                         <table>
                             <tr>
                                 <td>Gebruikersnaam</td>

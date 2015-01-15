@@ -5,7 +5,7 @@
 --%>
 <form class="login" action="logout.do" method="POST" action="#">
     <div class="main">
-        <label> Hallo, ${sessionScope.user.username}</label><br/>
+        <label> Hallo, ${sessionScope.user.firstName}</label><br/>
         <table>
             <input type="submit" value="Logout" name="logout" id="login"/>    
         </table>

@@ -22,5 +22,9 @@ public interface UserDAO {
             String password) throws IOException;
 
     void disconnect() throws IOException;
+    
+    boolean checkUsername (String username) throws IOException;
+    
+    boolean checkEmail (String email) throws IOException;
 
 }

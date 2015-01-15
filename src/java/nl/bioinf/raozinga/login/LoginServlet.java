@@ -20,8 +20,9 @@ import nl.bioinf.thjkral.databaseconnector.UserDAOmysqlImpl;
 import nl.bioinf.thjkral.databaseconnector.User;
 
 /**
+ * Servlet for registering a new user
  *
- * @author Koeian
+ * @author Rutger Ozinga
  */
 @WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -52,9 +53,9 @@ public class LoginServlet extends HttpServlet {
             String dbPass;
 
             try {
-                dbUrl = getServletConfig().getInitParameter("mysql_url");
-                dbUser = getServletConfig().getInitParameter("mysql_user");
-                dbPass = getServletConfig().getInitParameter("mysql_pass");
+                dbUrl = getServletContext().getInitParameter("mysql_url");
+                dbUser = getServletContext().getInitParameter("mysql_user");
+                dbPass = getServletContext().getInitParameter("mysql_pass");
                 
                 UserDAOmysqlImpl dbconnect = new UserDAOmysqlImpl();
                 
@@ -73,7 +74,7 @@ public class LoginServlet extends HttpServlet {
                     view.forward(request, response);
 
                 } catch (ServletException | IOException ex) {
-                    String errorMessage = "Could not connect to database: " + ex.getMessage();
+                    String errorMessage = "User could not be logged in: " + ex.getMessage();
                     request.setAttribute("error", errorMessage);
                     RequestDispatcher view = request.getRequestDispatcher("error.jsp");
                     view.forward(request, response);
