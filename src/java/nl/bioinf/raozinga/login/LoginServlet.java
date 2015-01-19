@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+
         if (username == null || username.length() == 0 || password == null
                 || password.length() == 0) {
             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
@@ -56,22 +56,30 @@ public class LoginServlet extends HttpServlet {
                 dbUrl = getServletContext().getInitParameter("mysql_url");
                 dbUser = getServletContext().getInitParameter("mysql_user");
                 dbPass = getServletContext().getInitParameter("mysql_pass");
-                
+
                 UserDAOmysqlImpl dbconnect = new UserDAOmysqlImpl();
-                
+
                 try {
                     dbconnect.connect(dbUrl, dbUser, dbPass);
-                    
-                    User user = dbconnect.loginUser(username, password);
 
-                    HttpSession session = request.getSession();
-                    session.setMaxInactiveInterval(10);
-                    if (session.getAttribute("user") == null) {
-                        session.setAttribute("user", user);
+                    try {
+                        User user = dbconnect.loginUser(username, password);
+
+                        dbconnect.disconnect();
+                        HttpSession session = request.getSession();
+                        session.setMaxInactiveInterval(10);
+                        if (session.getAttribute("user") == null) {
+                            session.setAttribute("user", user);
+                        }
+                        request.setAttribute("user", user);
+                        RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                        view.forward(request, response);
+                    } catch (IllegalArgumentException ex) {
+                        String LoginError = ex.getMessage();
+                        request.setAttribute("login_error", LoginError);
+                        RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                        view.forward(request, response);
                     }
-                    request.setAttribute("user", user);
-                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                    view.forward(request, response);
 
                 } catch (ServletException | IOException ex) {
                     String errorMessage = "User could not be logged in: " + ex.getMessage();

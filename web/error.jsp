@@ -12,8 +12,11 @@
         <title>Error Page</title>
     </head>
     <body>
-        <h1>Error Page</h1>
-        Something went wrong:<br />
+        <h1>Whoops!</h1>
+        <h3>Someone's totally gonna pay for this</h3>
+        
+        <br />
+        Something went wrong:
         ${requestScope.error}
     </body>
 </html>

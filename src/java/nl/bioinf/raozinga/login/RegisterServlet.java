@@ -93,38 +93,34 @@ public class RegisterServlet extends HttpServlet {
                             request.setAttribute("register_error", errormessage);
                             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                             view.forward(request, response);
+                            dbconnect.disconnect();
                         } else {
-                            errormessage = "Deze username bestaat niet! Yay!";
-                            request.setAttribute("register_error", errormessage);
-                            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                            view.forward(request, response);
-                        }
+                                                                
+                            if (emailExists == true) { //check if username exists in database
+                                errormessage = "Dit emailadres bestaat al";
+                                request.setAttribute("register_error", errormessage);
+                                RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                                view.forward(request, response);                                
+                            } else {
 
-                        if (emailExists == true) { //check if username exists in database
-                            errormessage = "Dit emailadres bestaat al";
-                            request.setAttribute("register_error", errormessage);
-                            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                            view.forward(request, response);
-                        } else {
-                            errormessage = "Deze email bestaat iet! Yay!";
-                            request.setAttribute("register_error", errormessage);
-                            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                            view.forward(request, response);
-                        }
+                                //register new user with valid credentials
+                                User user = dbconnect.registerUser(username, firstname, lastname, email, password);
 
-                        User user = dbconnect.registerUser(username, firstname, lastname, email, password);
-
-                        if (user != null) {
-                            //dbconnect.loginUser(username, password);
-                            errormessage = "Yay!";
-                            request.setAttribute("register_error", errormessage);
-                            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                            view.forward(request, response);
-                        } else {
-                            errormessage = "Er kon geen nieuwe gebruiker aangemaakt worden";
-                            request.setAttribute("register_error", errormessage);
-                            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-                            view.forward(request, response);
+                                if (user != null) {//when registering user was a succes
+                                    errormessage = "Registratie succesvol";
+                                    request.setAttribute("register_error", errormessage);
+                                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                                    view.forward(request, response);
+                                    dbconnect.disconnect();
+                                } else {
+                                    errormessage = "Er kon geen nieuwe gebruiker aangemaakt worden";
+                                    request.setAttribute("register_error", errormessage);
+                                    RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+                                    view.forward(request, response);
+                                    dbconnect.disconnect();                                    
+                                    
+                                }
+                            }
                         }
 
                     } catch (Exception ex) {
@@ -142,7 +138,7 @@ public class RegisterServlet extends HttpServlet {
                 }
 
             } else {//if username and password are too short
-                errormessage = "Username moet meer dan 3 karaters bevatten en het wachtword moet langer dan 5 tekens zijn";
+                errormessage = "Username moet meer dan 3 karakters bevatten en het wachtword moet langer dan 5 tekens zijn";
                 request.setAttribute("register_error", errormessage);
                 RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                 view.forward(request, response);

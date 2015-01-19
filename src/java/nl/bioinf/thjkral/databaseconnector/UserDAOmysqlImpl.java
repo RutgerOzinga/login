@@ -91,7 +91,7 @@ public final class UserDAOmysqlImpl implements UserDAO {
                 System.out.println("User logged in!");
                 return new User(username, firstName, lastName, emailAdress);
             } else {
-                throw new IllegalArgumentException("Username and Password not recognized");
+                throw new IllegalArgumentException("Username of wachtwoord niet herkend");
             }
         } catch (SQLException e) {
             Logger.getLogger(UserDAOmysqlImpl.class.getName()).log(Level.SEVERE, null, e);
